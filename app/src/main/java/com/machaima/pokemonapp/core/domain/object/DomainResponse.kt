@@ -1,6 +1,7 @@
 package com.machaima.pokemonapp.core.domain.`object`
 
 import android.provider.ContactsContract.Data
+import com.machaima.pokemonapp.core.domain.`object`.pokemon.Pokemon
 import com.machaima.pokemonapp.util.EMPTY
 
 /**
@@ -11,5 +12,5 @@ class DomainResponse {
     var hasError: Boolean = false
     var errors: List<Error>? = null
     var errorMessage: String = EMPTY
-    var responseList: List<ResponseData> = mutableListOf()
+    var responseList: List<Pokemon> = mutableListOf()
 }
