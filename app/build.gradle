@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'com.apollographql.apollo'
 }
 
 android {
@@ -46,6 +47,19 @@ android {
     }
 }
 
+apollo {
+    service("pokemon") {
+        packageName.set("com.machaima.pokemonapp")
+
+        srcDir("src/main/graphql")
+
+        introspection {
+            endpointUrl.set("https://beta.pokeapi.co/graphql/v1beta")
+            schemaFile.set(file("src/main/graphql/schema.json"))
+        }
+    }
+}
+
 dependencies {
 
     implementation "androidx.core:core:1.13.1"
@@ -66,4 +80,10 @@ dependencies {
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4'
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
+
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.10"
+    implementation "com.apollographql.apollo:apollo-runtime:4.1.1"
+    implementation "com.squareup.okhttp3:okhttp:4.11.0"
+
 }
