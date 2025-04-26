@@ -5,6 +5,7 @@ import com.machaima.pokemonapp.GetPokemonQuery
 import com.machaima.pokemonapp.core.domain.`object`.DomainResponse
 import com.machaima.pokemonapp.core.domain.`object`.pokemon.Pokemon
 import com.machaima.pokemonapp.core.domain.`object`.pokemon.PokemonStat
+import com.machaima.pokemonapp.core.domain.service.cache.CachedRepository
 import com.machaima.pokemonapp.util.EMPTY
 
 /**
@@ -14,7 +15,10 @@ object PokemonApolloDomainResponseTransformer {
 
     private const val SPRITE_ID = "front_default"
 
-    fun transform(response: ApolloResponse<GetPokemonQuery.Data>): DomainResponse {
+    fun transform(
+        response: ApolloResponse<GetPokemonQuery.Data>,
+        cachedRepository: CachedRepository
+    ): DomainResponse {
         val domainResponse = DomainResponse()
 
         if (!response.errors.isNullOrEmpty() || response.exception != null) {
@@ -30,6 +34,8 @@ object PokemonApolloDomainResponseTransformer {
                         getPokemon(pokemon)
                     )
                 }
+                // Here we would set the domainResponse list if it wasn't for the API limitation
+                cachedRepository.setList(pokemonList)
             }
         }
 
