@@ -2,6 +2,8 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.apollographql.apollo'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -81,9 +83,14 @@ dependencies {
     debugImplementation 'androidx.compose.ui:ui-tooling'
     debugImplementation 'androidx.compose.ui:ui-test-manifest'
 
-
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.10"
     implementation "com.apollographql.apollo:apollo-runtime:4.1.1"
     implementation "com.squareup.okhttp3:okhttp:4.11.0"
 
+    // Hilt
+    implementation "com.google.dagger:hilt-android:2.48"
+    kapt "com.google.dagger:hilt-compiler:2.48"
+
+// Hilt Compose integration (optional, but recommended)
+    implementation "androidx.hilt:hilt-navigation-compose:1.1.0"
 }
