@@ -1,10 +1,7 @@
 package com.machaima.pokemonapp.usecase.searchscreen.ui
 
-import android.util.Log
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -19,8 +16,6 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -34,9 +29,9 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.machaima.pokemonapp.core.domain.enumeration.PokemonType
+import com.machaima.pokemonapp.R
 import com.machaima.pokemonapp.ui.theme.Dimens
 import com.machaima.pokemonapp.usecase.searchscreen.viewmodel.SearchScreenViewModel
 import kotlinx.coroutines.launch
@@ -106,29 +101,19 @@ fun PokemonScreen(viewModel: SearchScreenViewModel) {
                 Spacer(modifier = Modifier.width(Dimens.textFileSpinnerMargin))
 
                 var expanded by remember { mutableStateOf(false) }
-                Box {
-                    Button(onClick = { expanded = true }) {
-                        Text(text = viewModel.selectedType)
+                DropdownWithButton(
+                    expanded = expanded,
+                    text = viewModel.selectedType,
+                    onExpandedChange = { expanded = it},
+                    onItemSelect = { type ->
+                        viewModel.onTypeSelected(type)
+                        expanded = false
                     }
-                    DropdownMenu(
-                        expanded = expanded,
-                        onDismissRequest = { expanded = false }
-                    ) {
-                        PokemonType.getTypes().forEach { type ->
-                            DropdownMenuItem(
-                                text = { Text(text = type) },
-                                onClick = {
-                                    viewModel.onTypeSelected(type)
-                                    expanded = false
-                                }
-                            )
-                        }
-                    }
-                }
+                )
             }
             
             LazyVerticalGrid(
-                columns = GridCells.Adaptive(minSize = 128.dp),
+                columns = GridCells.Adaptive(minSize = Dimens.pokemonListColumnsMinSize),
                 state = listState,
                 contentPadding = PaddingValues(Dimens.pokemonListPadding),
                 verticalArrangement = Arrangement.spacedBy(Dimens.pokemonListItemsVerticalMargin),
@@ -153,7 +138,7 @@ fun PokemonScreen(viewModel: SearchScreenViewModel) {
             onDismissRequest = { viewModel.showDialog = false },
             confirmButton = {
                 Button(onClick = { viewModel.showDialog = false }) {
-                    Text(text = "OK")
+                    Text(text = stringResource(id = R.string.ok_label))
                 }
             },
             text = { Text(viewModel.dialogMessage) }
