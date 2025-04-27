@@ -24,4 +24,5 @@ object Dimens {
     val pokemonListPadding = 8.dp
     val pokemonListItemsVerticalMargin = 8.dp
     val pokemonListItemsHeightMargin = 8.dp
+    val pokemonListColumnsMinSize = 128.dp
 }
