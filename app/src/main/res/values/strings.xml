@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">PokemonApp</string>
     <string name="generic_error">An error occurred. Please check your internet connection and try again later.</string>
+    <string name="no_results_message">There are no pokemon for the given input! Try a different one!</string>
 </resources>

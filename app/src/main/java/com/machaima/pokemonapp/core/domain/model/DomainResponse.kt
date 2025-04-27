@@ -1,6 +1,6 @@
-package com.machaima.pokemonapp.core.domain.`object`
+package com.machaima.pokemonapp.core.domain.model
 
-import com.machaima.pokemonapp.core.domain.`object`.pokemon.Pokemon
+import com.machaima.pokemonapp.core.domain.model.pokemon.Pokemon
 import com.machaima.pokemonapp.util.EMPTY
 
 /**
@@ -12,4 +12,5 @@ class DomainResponse {
     var errors: List<Error>? = null
     var errorMessage: String = EMPTY
     var responseList: List<Pokemon> = mutableListOf()
+    var hasMoreResults: Boolean = true
 }

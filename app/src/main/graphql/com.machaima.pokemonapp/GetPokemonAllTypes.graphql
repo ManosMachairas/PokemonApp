@@ -1,0 +1,28 @@
+query GetPokemonAllTypes($name: String!) {
+    pokemon_v2_pokemon(
+        where: {
+            name: {_ilike: $name},
+            pokemon_v2_pokemontypes: {
+                pokemon_v2_type: {
+                    name: {_in: ["fire", "water", "grass", "electric", "dragon", "psychic", "ghost", "dark", "steel", "fairy"]}
+                }
+            }
+        }
+    ) {
+        id
+        name
+        pokemon_v2_pokemonsprites {
+            sprites
+        }
+        pokemon_v2_pokemonstats(
+            where: {
+                pokemon_v2_stat: {name: {_in: ["hp", "attack", "defense"]}}
+            }
+        ) {
+            base_stat
+            pokemon_v2_stat {
+                name
+            }
+        }
+    }
+}

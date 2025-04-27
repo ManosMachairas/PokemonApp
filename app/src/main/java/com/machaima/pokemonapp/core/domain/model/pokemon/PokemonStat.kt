@@ -1,4 +1,4 @@
-package com.machaima.pokemonapp.core.domain.`object`.pokemon
+package com.machaima.pokemonapp.core.domain.model.pokemon
 
 data class PokemonStat(
     val name: String,
