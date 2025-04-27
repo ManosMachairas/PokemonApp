@@ -1,4 +1,4 @@
-package com.machaima.pokemonapp
+package com.machaima.pokemonapp.usecase.searchscreen
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.machaima.pokemonapp.ui.theme.PokemonAppTheme
 
-class MainActivity : ComponentActivity() {
+class SearchScreenActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

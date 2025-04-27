@@ -2,9 +2,9 @@ package com.machaima.pokemonapp.core.domain.transformer
 
 import com.apollographql.apollo.api.ApolloResponse
 import com.machaima.pokemonapp.GetPokemonQuery
-import com.machaima.pokemonapp.core.domain.`object`.DomainResponse
-import com.machaima.pokemonapp.core.domain.`object`.pokemon.Pokemon
-import com.machaima.pokemonapp.core.domain.`object`.pokemon.PokemonStat
+import com.machaima.pokemonapp.core.domain.model.DomainResponse
+import com.machaima.pokemonapp.core.domain.model.pokemon.Pokemon
+import com.machaima.pokemonapp.core.domain.model.pokemon.PokemonStat
 import com.machaima.pokemonapp.core.domain.service.cache.CachedRepository
 import com.machaima.pokemonapp.util.EMPTY
 

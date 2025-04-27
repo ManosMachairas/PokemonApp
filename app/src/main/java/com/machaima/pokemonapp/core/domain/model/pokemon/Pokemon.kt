@@ -1,6 +1,6 @@
-package com.machaima.pokemonapp.core.domain.`object`.pokemon
+package com.machaima.pokemonapp.core.domain.model.pokemon
 
-import com.machaima.pokemonapp.core.domain.`object`.ResponseData
+import com.machaima.pokemonapp.core.domain.model.ResponseData
 
 /**
  * Data of the pokemon to be used by the view models
