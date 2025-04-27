@@ -1,6 +1,5 @@
 package com.machaima.pokemonapp.core.domain.`object`
 
-import android.provider.ContactsContract.Data
 import com.machaima.pokemonapp.core.domain.`object`.pokemon.Pokemon
 import com.machaima.pokemonapp.util.EMPTY
 

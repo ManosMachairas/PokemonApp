@@ -1,4 +1,4 @@
-query GetPokemon(
+query GetPokemonWithPagination(
     $name: String!,
     $type: String!,
     $limit: Int!,
