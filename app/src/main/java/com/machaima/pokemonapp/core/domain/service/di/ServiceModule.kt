@@ -39,7 +39,7 @@ object ServiceModule {
 
     @Singleton
     @Provides
-    fun provideOkHttpClient(context: Context): OkHttpClient {
+    fun provideOkHttpClient(@ApplicationContext context: Context): OkHttpClient {
         val cache = Cache(File(context.cacheDir, "http_cache"), CACHE_SIZE)
 
         val cacheInterceptor = Interceptor { chain ->
