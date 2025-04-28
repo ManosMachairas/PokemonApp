@@ -46,9 +46,13 @@ object PokemonApolloNameAndTypeDomainResponseTransformer {
     private fun getPokemon(pokemon: GetPokemonQuery.Pokemon_v2_pokemon): Pokemon {
         return Pokemon(
             pokemon.id,
-            pokemon.name,
+            pokemon.name.uppercase(),
             getPokemonStats(pokemon.pokemon_v2_pokemonstats),
-            getPokemonPhoto(pokemon.pokemon_v2_pokemonsprites)
+            getPokemonPhoto(pokemon.pokemon_v2_pokemonsprites),
+            getPokemonDescription(pokemon.pokemon_v2_pokemonspecy),
+            getPokemonTypes(pokemon.pokemon_v2_pokemontypes),
+            pokemon.weight ?: 0,
+            pokemon.height ?: 0
         )
     }
 
@@ -70,5 +74,15 @@ object PokemonApolloNameAndTypeDomainResponseTransformer {
     private fun getPokemonPhoto(sprites: List<GetPokemonQuery.Pokemon_v2_pokemonsprite>): String {
         val spritesHashMap = sprites[0].sprites as? LinkedHashMap<*, *>
         return spritesHashMap?.get(SPRITE_ID) as? String ?: EMPTY
+    }
+
+    private fun getPokemonDescription(specy: GetPokemonQuery.Pokemon_v2_pokemonspecy?): String {
+        return specy?.pokemon_v2_pokemonspeciesflavortexts?.get(0)?.flavor_text ?: EMPTY
+    }
+
+    private fun getPokemonTypes(types: List<GetPokemonQuery.Pokemon_v2_pokemontype>): List<String> {
+        return types.mapNotNull { it.pokemon_v2_type?.name }
+            .filter { it != EMPTY }
+            .toMutableList()
     }
 }

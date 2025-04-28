@@ -3,4 +3,11 @@
     <string name="generic_error">An error occurred. Please check your internet connection and try again later.</string>
     <string name="no_results_message">There are no pokemon for the given input! Try a different one!</string>
     <string name="ok_label">OK</string>
+    <string name="no_description_fallback">Mysterious pokemon. Not much known for it yet. Maybe you will be the first trainer to help!</string>
+    <string name="type_label">Type</string>
+    <string name="weight_label">Weight</string>
+    <string name="height_label">Height</string>
+    <string name="base_stats_label">Base Stats</string>
+    <string name="description_label">Description</string>
+    <string name="details_screen_error">The pokemon fled away!!! Better luck next time!</string>
 </resources>

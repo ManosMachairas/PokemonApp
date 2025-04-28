@@ -1,5 +1,6 @@
 package com.machaima.pokemonapp.usecase.searchscreen.ui
 
+import android.net.Uri
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -30,15 +31,21 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.machaima.pokemonapp.R
+import com.machaima.pokemonapp.navigation.ScreenEndpoints
 import com.machaima.pokemonapp.ui.theme.Dimens
 import com.machaima.pokemonapp.usecase.searchscreen.viewmodel.SearchScreenViewModel
 import kotlinx.coroutines.launch
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun PokemonScreen(viewModel: SearchScreenViewModel) {
+fun PokemonScreen(
+    navController: NavController,
+    viewModel: SearchScreenViewModel = hiltViewModel()
+) {
     val pokemonList = viewModel.pokemonList
     val isLoading = viewModel.isLoading
     val showDialog = viewModel.showDialog
@@ -126,7 +133,11 @@ fun PokemonScreen(viewModel: SearchScreenViewModel) {
                     }
                 } else {
                     items(pokemonList) {pokemon ->
-                        PokemonCard(pokemon)
+                        PokemonCard(pokemon) {
+                            val pokemonJson = Json.encodeToString(pokemon)
+                            val encodedPokemonJson = Uri.encode(pokemonJson)
+                            navController.navigate("${ScreenEndpoints.POKEMON_DETAILS_SCREEN}/$encodedPokemonJson")
+                        }
                     }
                 }
             }

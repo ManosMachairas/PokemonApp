@@ -25,4 +25,19 @@ object Dimens {
     val pokemonListItemsVerticalMargin = 8.dp
     val pokemonListItemsHeightMargin = 8.dp
     val pokemonListColumnsMinSize = 128.dp
+
+    // Details screen
+    // Image and types
+    val lazyColumnPadding = 16.dp
+    val lazyColumnVerticalArrangement = 16.dp
+    val detailsImageSize = 150.dp
+
+    // Information row
+    val informationRowPadding = 16.dp
+
+    // Base stats table
+    val tableColumnPadding = 16.dp
+    val baseStatsTitlePadding = 8.dp
+    val baseStatsTableDividerPaddingVertical = 8.dp
+    val baseStatsRowPadding = 4.dp
 }
