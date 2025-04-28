@@ -21,7 +21,7 @@ class CachedRepositoryImpl : CachedRepository {
             (offset + PAGE_LIMIT).coerceAtMost(pokemonList.size)
         )
 
-        offset += PAGE_LIMIT
+        offset = (offset + PAGE_LIMIT).coerceAtMost(pokemonList.size)
 
         return subList
     }
