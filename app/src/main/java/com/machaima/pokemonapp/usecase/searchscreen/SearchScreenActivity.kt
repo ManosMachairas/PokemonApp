@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.machaima.pokemonapp.navigation.PokemonNavGraph
 import com.machaima.pokemonapp.ui.theme.PokemonAppTheme
 import com.machaima.pokemonapp.usecase.searchscreen.ui.PokemonScreen
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,29 +25,16 @@ class SearchScreenActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             PokemonAppTheme {
-                PokemonScreen(viewModel = hiltViewModel())
+                PokemonNavGraph()
             }
         }
     }
-
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        return super.onCreateView(name, context, attrs)
-
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
 }
 
 @Preview(showBackground = true)
 @Composable
 fun GreetingPreview() {
     PokemonAppTheme {
-        Greeting("Android")
+        PokemonNavGraph()
     }
 }

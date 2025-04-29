@@ -2,6 +2,7 @@ package com.machaima.pokemonapp.usecase.searchscreen.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -27,13 +28,17 @@ import com.machaima.pokemonapp.ui.theme.Dimens
 import com.machaima.pokemonapp.util.POKEMON_CARD_IMAGE_DESCRIPTION
 
 @Composable
-fun PokemonCard(pokemon: Pokemon) {
+fun PokemonCard(
+    pokemon: Pokemon,
+    onClick: () -> Unit
+) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .background(CeruleanBlue)
             .padding(Dimens.pokemonCardPadding)
             .size(Dimens.pokemonCardSize)
+            .clickable { onClick() }
     ) {
         Image(
             painter = rememberAsyncImagePainter(
