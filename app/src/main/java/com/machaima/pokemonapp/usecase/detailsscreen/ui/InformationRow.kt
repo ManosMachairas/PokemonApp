@@ -10,16 +10,22 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import com.machaima.pokemonapp.ui.theme.Dimens
 
 @Composable
-fun InformationRow(title: String, value: String) {
+fun InformationRow(
+    title: String,
+    value: String,
+    backgroundColor: Color,
+    textColor: Color
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                MaterialTheme.colorScheme.surfaceVariant,
+                backgroundColor,
                 shape = MaterialTheme.shapes.medium
             )
             .padding(Dimens.informationRowPadding),
@@ -29,11 +35,15 @@ fun InformationRow(title: String, value: String) {
             Text(
                 text = title,
                 style = MaterialTheme.typography.titleLarge,
-                fontWeight = FontWeight.SemiBold
+                color = textColor,
+                fontWeight = FontWeight.SemiBold,
+                modifier = Modifier.padding(Dimens.informationRowTextPadding)
             )
             Text(
                 text = value,
-                style = MaterialTheme.typography.bodyLarge
+                color = textColor,
+                style = MaterialTheme.typography.bodyLarge,
+                modifier = Modifier.padding(Dimens.informationRowTextPadding)
             )
         }
     }

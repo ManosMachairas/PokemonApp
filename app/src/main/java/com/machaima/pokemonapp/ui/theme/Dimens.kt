@@ -11,14 +11,22 @@ object Dimens {
     val pokemonCardImageRadius = 8.dp
     val pokemonCardImageMarginBottom = 8.dp
     val pokemonCardTextSize = 16.sp
+    val pokemonCardBorderWidth = 1.dp
+    val pokemonCardCornerRadius = 12.dp
 
     // AppBar
-    val appBarImageWidth = 80.dp
-    val appBarImageHeight = 30.dp
+    val appBarImageWidth = 120.dp
+    val appBarImageHeight = 45.dp
 
     // Search screen
     val contentPadding = 16.dp
     val textFileSpinnerMargin = 8.dp
+
+    // Button type
+    val buttonBorderWidth = 1.dp
+
+    // Search field
+    val searchFieldBorderWidth = 1.dp
 
     // Lazy Grid
     val pokemonListPadding = 8.dp
@@ -34,10 +42,14 @@ object Dimens {
 
     // Information row
     val informationRowPadding = 16.dp
+    val informationRowTextPadding = 4.dp
 
     // Base stats table
     val tableColumnPadding = 16.dp
     val baseStatsTitlePadding = 8.dp
     val baseStatsTableDividerPaddingVertical = 8.dp
     val baseStatsRowPadding = 4.dp
+
+    val progressIndicatorPadding = 16.dp
+    val progressIndicatorSize = 64.dp
 }
