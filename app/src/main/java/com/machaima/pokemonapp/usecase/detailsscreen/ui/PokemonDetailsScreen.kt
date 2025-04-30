@@ -1,6 +1,7 @@
 package com.machaima.pokemonapp.usecase.detailsscreen.ui
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavController
 import androidx.compose.foundation.layout.*
@@ -71,6 +72,7 @@ fun PokemonDetailsScreen(
             Column(
                 modifier = Modifier
                     .fillMaxSize()
+                    .background(Color.White)
                     .padding(paddingValues)
                     .padding(Dimens.lazyColumnPadding)
                     .verticalScroll(scrollState),
