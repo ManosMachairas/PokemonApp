@@ -11,6 +11,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.machaima.pokemonapp.R
@@ -18,12 +19,16 @@ import com.machaima.pokemonapp.core.domain.model.pokemon.PokemonStat
 import com.machaima.pokemonapp.ui.theme.Dimens
 
 @Composable
-fun BaseStatsTable(baseStats: List<PokemonStat>) {
+fun BaseStatsTable(
+    baseStats: List<PokemonStat>,
+    backgroundColor: Color,
+    textColor: Color
+    ) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .background(
-                MaterialTheme.colorScheme.surfaceVariant,
+                backgroundColor,
                 shape = MaterialTheme.shapes.medium
             )
             .padding(Dimens.tableColumnPadding)
@@ -32,6 +37,7 @@ fun BaseStatsTable(baseStats: List<PokemonStat>) {
             text = stringResource(id = R.string.base_stats_label),
             style = MaterialTheme.typography.titleLarge,
             fontWeight = FontWeight.SemiBold,
+            color = textColor,
             modifier = Modifier.padding(bottom = Dimens.baseStatsTitlePadding)
         )
 
@@ -45,16 +51,18 @@ fun BaseStatsTable(baseStats: List<PokemonStat>) {
                 ) {
                     Text(
                         text = stat.name,
+                        color = textColor,
                         style = MaterialTheme.typography.bodyMedium
                     )
                     Text(
                         text = stat.value.toString(),
+                        color = textColor,
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
 
                 if (index < baseStats.size - 1) {
-                    Divider(modifier = Modifier.padding(vertical = Dimens.baseStatsTableDividerPaddingVertical))
+                    Divider(modifier = Modifier.padding(vertical = Dimens.baseStatsTableDividerPaddingVertical).background(textColor))
                 }
             }
         }

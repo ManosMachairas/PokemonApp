@@ -2,6 +2,7 @@ package com.machaima.pokemonapp.usecase.searchscreen.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,7 @@ import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.machaima.pokemonapp.R
 import com.machaima.pokemonapp.core.domain.model.pokemon.Pokemon
-import com.machaima.pokemonapp.ui.theme.CeruleanBlue
+import com.machaima.pokemonapp.ui.theme.Colors
 import com.machaima.pokemonapp.ui.theme.Dimens
 import com.machaima.pokemonapp.util.POKEMON_CARD_IMAGE_DESCRIPTION
 
@@ -32,10 +33,14 @@ fun PokemonCard(
     pokemon: Pokemon,
     onClick: () -> Unit
 ) {
+    val shape = RoundedCornerShape(Dimens.pokemonCardCornerRadius)
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
-            .background(CeruleanBlue)
+            .clip(shape)
+            .background(Colors.CeruleanBlue)
+            .border(Dimens.pokemonCardBorderWidth, Colors.Red, shape)
             .padding(Dimens.pokemonCardPadding)
             .size(Dimens.pokemonCardSize)
             .clickable { onClick() }
@@ -62,15 +67,20 @@ fun PokemonCard(
             textAlign = TextAlign.Center,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
-            fontSize = Dimens.pokemonCardTextSize
+            fontSize = Dimens.pokemonCardTextSize,
+            color = Colors.ChineseWhite
         )
     }
 }
 
 @Composable
 fun PokemonCardPlaceholder() {
+
+    val shape = RoundedCornerShape(Dimens.pokemonCardCornerRadius)
+
     Box(
         modifier = Modifier
+            .clip(shape)
             .background(Color.LightGray.copy(alpha = 0.5f))
             .padding(Dimens.pokemonCardPadding)
             .size(Dimens.pokemonCardSize)

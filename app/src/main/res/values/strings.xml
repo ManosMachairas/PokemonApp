@@ -10,4 +10,6 @@
     <string name="base_stats_label">Base Stats</string>
     <string name="description_label">Description</string>
     <string name="details_screen_error">The pokemon fled away!!! Better luck next time!</string>
+    <string name="search_pokemon_hint">Search Pokémon</string>
+    <string name="no_more_pokemon_label">No more Pokémon to load!</string>
 </resources>

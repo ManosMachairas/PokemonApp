@@ -1,8 +1,9 @@
 package com.machaima.pokemonapp.usecase.searchscreen.ui
 
 import android.net.Uri
-import androidx.compose.foundation.ExperimentalFoundationApi
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -19,7 +21,6 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -30,19 +31,27 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.airbnb.lottie.compose.LottieAnimation
+import com.airbnb.lottie.compose.LottieCompositionSpec
+import com.airbnb.lottie.compose.animateLottieCompositionAsState
+import com.airbnb.lottie.compose.rememberLottieComposition
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.machaima.pokemonapp.R
 import com.machaima.pokemonapp.navigation.ScreenEndpoints
+import com.machaima.pokemonapp.ui.theme.Colors
 import com.machaima.pokemonapp.ui.theme.Dimens
 import com.machaima.pokemonapp.usecase.searchscreen.viewmodel.SearchScreenViewModel
+import com.machaima.pokemonapp.util.VISIBLE_ITEMS_BEFORE_CALL
 import kotlinx.coroutines.launch
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 
 @Composable
-fun PokemonScreen(
+fun PokemonSearchScreen(
     navController: NavController,
     viewModel: SearchScreenViewModel = hiltViewModel()
 ) {
@@ -52,15 +61,23 @@ fun PokemonScreen(
     val hasMoreResultsToLoad = viewModel.hasMoreResultsToLoad
     val listState = rememberLazyGridState()
     val coroutineScope = rememberCoroutineScope()
-//    val context = LocalContext.current
-//    val previousHasMoreResults = remember { mutableStateOf(true) }
-//
-//    LaunchedEffect(hasMoreResultsToLoad) {
-//        if (!hasMoreResultsToLoad && previousHasMoreResults.value && pokemonList.size != 0) {
-//            Toast.makeText(context, "No more Pokémon to load!", Toast.LENGTH_SHORT).show()
-//        }
-//        previousHasMoreResults.value = hasMoreResultsToLoad
-//    }
+
+    val context = LocalContext.current
+    val previousHasMoreResults = remember { mutableStateOf(true) }
+
+    val noMorePokemonLabel = stringResource(id = R.string.no_more_pokemon_label)
+    LaunchedEffect(hasMoreResultsToLoad) {
+        if (!hasMoreResultsToLoad && previousHasMoreResults.value && pokemonList.size != 0) {
+            Toast.makeText(context, noMorePokemonLabel, Toast.LENGTH_SHORT).show()
+        }
+        previousHasMoreResults.value = hasMoreResultsToLoad
+    }
+
+    val systemUiController = rememberSystemUiController()
+    systemUiController.setSystemBarsColor(
+        color = Colors.CeruleanBlue,
+        darkIcons = false
+    )
 
     LaunchedEffect(Unit) {
         viewModel.initialSearchIfNeeded()
@@ -75,7 +92,7 @@ fun PokemonScreen(
 
         snapshotFlow { listState.layoutInfo.visibleItemsInfo.lastOrNull()?.index }
             .collect { index ->
-                if (index != null && index >= pokemonList.size - 3 && !isLoading && hasMoreResultsToLoad) {
+                if (index != null && index >= pokemonList.size - VISIBLE_ITEMS_BEFORE_CALL && !isLoading && hasMoreResultsToLoad) {
                     viewModel.loadMorePokemon()
                 }
             }
@@ -98,12 +115,12 @@ fun PokemonScreen(
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextField(
-                    value = viewModel.textFieldValue,
-                    onValueChange = { viewModel.onTextChanged(it) },
-                    modifier = Modifier.weight(1f),
-                    label = { Text(text = "Search Pokémon") }
-                )
+                SearchField(
+                    text = viewModel.textFieldValue,
+                    modifier = Modifier.weight(1f)
+                ) {
+                    newValue -> viewModel.onTextChanged(newValue)
+                }
 
                 Spacer(modifier = Modifier.width(Dimens.textFileSpinnerMargin))
 
@@ -140,6 +157,23 @@ fun PokemonScreen(
                         }
                     }
                 }
+            }
+        }
+        if (isLoading && pokemonList.isNotEmpty()) {
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(vertical = Dimens.progressIndicatorPadding),
+                contentAlignment = Alignment.Center
+            ) {
+                val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.loading_pokeball))
+                val progress by animateLottieCompositionAsState(composition)
+
+                LottieAnimation(
+                    composition = composition,
+                    progress = { progress },
+                    modifier = Modifier.size(Dimens.progressIndicatorSize).align(Alignment.BottomCenter)
+                )
             }
         }
     }

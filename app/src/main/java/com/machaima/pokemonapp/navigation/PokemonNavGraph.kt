@@ -11,7 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.machaima.pokemonapp.usecase.detailsscreen.ui.PokemonDetailsScreen
-import com.machaima.pokemonapp.usecase.searchscreen.ui.PokemonScreen
+import com.machaima.pokemonapp.usecase.searchscreen.ui.PokemonSearchScreen
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
@@ -27,7 +27,7 @@ fun PokemonNavGraph() {
             enterTransition = { fadeIn(animationSpec = tween(700)) },
             exitTransition = { fadeOut(animationSpec = tween(700)) }
         ) {
-            PokemonScreen(navController)
+            PokemonSearchScreen(navController)
         }
 
         composable(
