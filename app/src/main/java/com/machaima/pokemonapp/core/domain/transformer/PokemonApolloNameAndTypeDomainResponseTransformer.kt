@@ -62,7 +62,7 @@ object PokemonApolloNameAndTypeDomainResponseTransformer {
         stats.forEach { stat ->
             statsList.add(
                 PokemonStat(
-                    stat.pokemon_v2_stat?.name ?: EMPTY,
+                    stat.pokemon_v2_stat?.name?.uppercase() ?: EMPTY,
                     stat.base_stat
                 )
             )
@@ -81,7 +81,7 @@ object PokemonApolloNameAndTypeDomainResponseTransformer {
     }
 
     private fun getPokemonTypes(types: List<GetPokemonQuery.Pokemon_v2_pokemontype>): List<String> {
-        return types.mapNotNull { it.pokemon_v2_type?.name }
+        return types.mapNotNull { it.pokemon_v2_type?.name?.uppercase() }
             .filter { it != EMPTY }
             .toMutableList()
     }

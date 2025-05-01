@@ -24,6 +24,8 @@ object Dimens {
 
     // Button type
     val buttonBorderWidth = 1.dp
+    val iconArrowSize = 18.dp
+    val iconTextMargin = 6.dp
 
     // Search field
     val searchFieldBorderWidth = 1.dp
