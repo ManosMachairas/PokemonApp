@@ -1,12 +1,16 @@
 package com.machaima.pokemonapp.usecase.searchscreen.ui
 
 import androidx.compose.foundation.border
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import com.machaima.pokemonapp.R
 import com.machaima.pokemonapp.ui.theme.Colors
 import com.machaima.pokemonapp.ui.theme.Dimens
@@ -17,6 +21,8 @@ fun SearchField(
     modifier: Modifier,
     onTextChanged: (String) -> Unit
 ) {
+    val focusManager = LocalFocusManager.current
+
     TextField(
         value = text,
         onValueChange = { onTextChanged(it) },
@@ -29,7 +35,12 @@ fun SearchField(
             unfocusedTextColor = Colors.CeruleanBlue,
             focusedLabelColor = Colors.CeruleanBlue,
             unfocusedLabelColor = Colors.CeruleanBlue
+        ),
+        keyboardOptions = KeyboardOptions.Default.copy(
+            imeAction = ImeAction.Done
+        ),
+        keyboardActions = KeyboardActions(
+            onDone = { focusManager.clearFocus() }
         )
-
     )
 }
