@@ -13,6 +13,8 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.machaima.pokemonapp.usecase.detailsscreen.ui.PokemonDetailsScreen
 import com.machaima.pokemonapp.usecase.searchscreen.ui.PokemonSearchScreen
 
+const val TRANSITION_DURATION = 700
+
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun PokemonNavGraph() {
@@ -24,8 +26,8 @@ fun PokemonNavGraph() {
     ) {
         composable(
             route = ScreenEndpoints.POKEMON_SEARCH_LIST_SCREEN_ENDPOINT,
-            enterTransition = { fadeIn(animationSpec = tween(700)) },
-            exitTransition = { fadeOut(animationSpec = tween(700)) }
+            enterTransition = { fadeIn(animationSpec = tween(TRANSITION_DURATION)) },
+            exitTransition = { fadeOut(animationSpec = tween(TRANSITION_DURATION)) }
         ) {
             PokemonSearchScreen(navController)
         }
@@ -33,9 +35,9 @@ fun PokemonNavGraph() {
         composable(
             route = ScreenEndpoints.POKEMON_DETAILS_SCREEN_ENDPOINT,
             arguments = listOf(navArgument(ScreenEndpoints.POKEMON_JSON_ARGUMENT) { type = NavType.StringType}),
-            enterTransition = { fadeIn(animationSpec = tween(700)) },
-            exitTransition = { fadeOut(animationSpec = tween(700)) }
-        ) {navBackStackEntry ->
+            enterTransition = { fadeIn(animationSpec = tween(TRANSITION_DURATION)) },
+            exitTransition = { fadeOut(animationSpec = tween(TRANSITION_DURATION)) }
+        ) {
             PokemonDetailsScreen(
                 navController = navController
             )
