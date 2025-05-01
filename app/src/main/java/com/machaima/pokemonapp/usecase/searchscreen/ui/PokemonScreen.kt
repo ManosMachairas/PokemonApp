@@ -1,7 +1,6 @@
 package com.machaima.pokemonapp.usecase.searchscreen.ui
 
 import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -33,7 +32,6 @@ import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
@@ -63,17 +61,6 @@ fun PokemonSearchScreen(
     val hasMoreResultsToLoad = viewModel.hasMoreResultsToLoad
     val listState = rememberLazyGridState()
     val coroutineScope = rememberCoroutineScope()
-
-    val context = LocalContext.current
-    val previousHasMoreResults = remember { mutableStateOf(true) }
-
-    val noMorePokemonLabel = stringResource(id = R.string.no_more_pokemon_label)
-    LaunchedEffect(hasMoreResultsToLoad) {
-        if (!hasMoreResultsToLoad && previousHasMoreResults.value && pokemonList.size != 0) {
-            Toast.makeText(context, noMorePokemonLabel, Toast.LENGTH_SHORT).show()
-        }
-        previousHasMoreResults.value = hasMoreResultsToLoad
-    }
 
     val systemUiController = rememberSystemUiController()
     systemUiController.setSystemBarsColor(
