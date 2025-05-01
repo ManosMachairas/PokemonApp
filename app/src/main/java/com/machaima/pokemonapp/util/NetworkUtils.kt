@@ -5,4 +5,4 @@ const val CACHE_TIME = 600
 const val SERVER_BASE_URL = "https://beta.pokeapi.co/graphql/v1beta"
 const val CACHE_REPOSITORY_CALL_DELAY = 1000L
 const val ON_USER_INPUT_CHANGED_CALL_DELAY = 1500L
-const val VISIBLE_ITEMS_BEFORE_CALL = 3
+const val VISIBLE_ITEMS_BEFORE_CALL = 4
