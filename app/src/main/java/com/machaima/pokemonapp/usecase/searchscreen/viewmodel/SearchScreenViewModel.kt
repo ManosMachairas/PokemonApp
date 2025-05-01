@@ -1,6 +1,5 @@
 package com.machaima.pokemonapp.usecase.searchscreen.viewmodel
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
@@ -53,7 +52,6 @@ class SearchScreenViewModel @Inject constructor(
         searchJob?.cancel()
         searchJob = viewModelScope.launch {
             delay(ON_USER_INPUT_CHANGED_CALL_DELAY)
-            Log.d("DEBUG", "Initial search for input")
             pokemonList.clear()
             fetchPokemon(true)
             hasInitiallySearchedAlready = true
@@ -74,7 +72,6 @@ class SearchScreenViewModel @Inject constructor(
 
     fun loadMorePokemon() {
         viewModelScope.launch {
-            Log.d("DEBUG", "Trying to fetch next batch")
             if (!isLoading && hasMoreResultsToLoad) { // if already loading for more results don't try to fetch more
                 fetchPokemon(false)
             }
@@ -82,16 +79,12 @@ class SearchScreenViewModel @Inject constructor(
     }
 
     private fun handleSuccessfulResponse(response: DomainResponse, isInitialCall: Boolean) {
-        Log.d("DEBUG", "Successful response")
         if (isInitialCall && response.responseList.isEmpty()) {
-            Log.d("DEBUG", "Initial call empty list")
             showDialogInfo()
             hasMoreResultsToLoad = false
         } else if (response.responseList.isEmpty()) {
-            Log.d("DEBUG", "End of list")
             hasMoreResultsToLoad = false
         } else {
-            Log.d("DEBUG", "Results added to list, has more results: ${response.hasMoreResults}")
             pokemonList.addAll(response.responseList)
             hasMoreResultsToLoad = response.hasMoreResults
             if (isInitialCall) {
