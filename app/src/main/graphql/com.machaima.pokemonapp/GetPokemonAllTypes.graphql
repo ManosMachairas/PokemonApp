@@ -1,0 +1,39 @@
+query GetPokemonAllTypes($name: String!) {
+    pokemon_v2_pokemon(
+        where: {
+            name: {_ilike: $name},
+            pokemon_v2_pokemontypes: {
+                pokemon_v2_type: {
+                    name: {_in: ["fire", "water", "grass", "electric", "dragon", "psychic", "ghost", "dark", "steel", "fairy"]}
+                }
+            }
+        }
+    ) {
+        id
+        name
+        pokemon_v2_pokemonsprites {
+            sprites
+        }
+        pokemon_v2_pokemonspecy {
+            pokemon_v2_pokemonspeciesflavortexts(where: {language_id: {_eq: 9}}, limit: 1) {
+                flavor_text
+            }
+        }
+        pokemon_v2_pokemonstats(
+            where: {pokemon_v2_stat: {name: {_in: ["hp", "attack", "defense", "special-attack", "special-defense", "speed"]}}}
+            order_by: {pokemon_v2_stat: {id: asc}}
+        ) {
+            base_stat
+            pokemon_v2_stat {
+                name
+            }
+        }
+        pokemon_v2_pokemontypes {
+            pokemon_v2_type {
+                name
+            }
+        }
+        weight
+        height
+    }
+}
